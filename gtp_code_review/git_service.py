@@ -17,4 +17,10 @@ class GitService:
         for diff in self.diffs:
             if diff.new_file:
                 diffs_content[diff.b_path] = diff.b_blob.data_stream.read().decode('utf-8')
+            elif diff.deleted_file:
+                pass
+            else:
+                diffs_content[diff.b_path] = diff.diff.decode('utf-8')
+
         return diffs_content
+
