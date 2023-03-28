@@ -1,15 +1,15 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 setup(
-    name='gtp_code_review',
+    name='gpt_code_review',
     version='0.1',
-    description='A description of my package',
-    author='Patryk Maruda',
-    author_email='patrykmaruda@gmail.com',
-    url='https://github.com/yourusername/my_package',
-    packages=['gtp_code_review'],
+    packages=find_packages(),
     install_requires=[
         'click',
-        'GitPython',
+        'openai',
     ],
+    entry_points='''
+        [console_scripts]
+        gpt_code_review=gpt_code_review.main:SomeFunctionClass.cli
+    '''
 )
