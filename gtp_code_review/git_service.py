@@ -12,24 +12,23 @@ class GitService:
     def get_diff(self):
         return self.review_branch.commit.diff(self.main_branch.commit)
 
-    def show_diffs(self):
-        for diff in self.diffs:
-            print(diff)
-
-    def get_diffs_content_separated_by_file(self):
-        diffs_content = {}
-        for diff in self.diffs:
-            if diff.new_file:
-                import pdb; pdb.set_trace()
-                diffs_content[diff.b_path] = diff.b_blob.data_stream.read().decode('utf-8')
-            elif diff.deleted_file:
-                pass
-            else:
-                import pdb; pdb.set_trace()
-                diffs_content[diff.b_path] = diff.diff.decode('utf-8')
-
-        return diffs_content
+    def get_diffrence_per_file(self):
+        changes_per_file = {}
+        for i in self.get_diff():
+            changes_per_file[i.a_path] = self.simple_diff(i.a_path)
+        return changes_per_file
 
     def simple_diff(self, file_path):
-        # return self.repo.git.diff(self.main_branch, self.repo.active_branch.name, ignore_blank_lines=True, ignore_space_at_eol=True, ignore_space_change=True)
-        return self.repo.git.diff(self.main_branch, self.repo.active_branch.name, unified=0, paths=file_path)
+        return self.repo.git.diff(self.main_branch, self.repo.active_branch.name, '--', file_path, unified=0,
+                                  ignore_blank_lines=True, ignore_space_at_eol=True, ignore_space_change=True,
+                                  ignore_all_space=True,
+                                  ignore_matching_lines=r'^\s*(var|let|const)\s+[a-zA-Z_$][a-zA-Z0-9_$]*\s*=')
+
+    def preper_message_for_chat(self):
+        data = self.get_diffrence_per_file()
+
+        result = """Make code review for this code: \n ```"""
+        for diff in data:
+            str_from_diff = f'{diff} \n {data[diff]}'
+            result += str_from_diff
+        return result + '```'
