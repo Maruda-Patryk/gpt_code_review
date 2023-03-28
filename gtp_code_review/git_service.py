@@ -21,8 +21,7 @@ class GitService:
     def simple_diff(self, file_path):
         return self.repo.git.diff(self.main_branch, self.repo.active_branch.name, '--', file_path, unified=0,
                                   ignore_blank_lines=True, ignore_space_at_eol=True, ignore_space_change=True,
-                                  ignore_all_space=True,
-                                  ignore_matching_lines=r'^\s*(var|let|const)\s+[a-zA-Z_$][a-zA-Z0-9_$]*\s*=')
+                                  ignore_all_space=True, ignore_submodules=True, ignore_cr_at_eol=True)
 
     def preper_message_for_chat(self):
         data = self.get_diffrence_per_file()
