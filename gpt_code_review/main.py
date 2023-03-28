@@ -3,7 +3,7 @@ import os
 import click
 
 from .gpt_service import GptService
-import pprint
+
 
 class SomeFunctionClass:
     @staticmethod
@@ -14,5 +14,6 @@ class SomeFunctionClass:
     @click.option('--main_branch', default='master', help='main branch')
     @click.option('--review_branch', default=None, help='branch to compare')
     def cli(gpt_model, token, repo_path, main_branch, review_branch):
-        service = GptService(gpt_model=gpt_model, token=token, repo_path=repo_path, main_branch=main_branch, review_branch=review_branch)
-        pprint.pprint(service.get_message())
+        service = GptService(gpt_model=gpt_model, token=token, repo_path=repo_path, main_branch=main_branch,
+                             review_branch=review_branch)
+        print(service.get_message())
