@@ -2,9 +2,9 @@ import git
 
 
 class GitService:
-    def __init__(self, repo_path='.', main_branch='master', review_branch=None):
+    def __init__(self, repo_path='.', main_branch='master', review_branch=None, extend=False):
         self.repo = git.Repo(repo_path)
-
+        self.extend = extend
         self.main_branch = self.repo.branches[main_branch]
         self.review_branch = self.repo.branches[review_branch] if review_branch else self.repo.active_branch
         self.diffs = self.get_diff()
@@ -27,6 +27,8 @@ class GitService:
         data = self.get_diffrence_per_file()
 
         result = """Make code review for this code: \n ```"""
+        if self.extend:
+            result += f'and make some example how to solve those problems \n'
         for diff in data:
             str_from_diff = f'{diff} \n {data[diff]}'
             result += str_from_diff

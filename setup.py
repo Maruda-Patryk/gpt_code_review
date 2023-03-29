@@ -4,6 +4,9 @@ setup(
     name='gpt_code_review',
     version='0.1.0',
     packages=find_packages(),
+    author='Patryk Maruda',
+    author_email='patrykmaruda@gmail.com',
+    description='Code review with GPT-3',
     install_requires=[
         'click',
         'openai',
