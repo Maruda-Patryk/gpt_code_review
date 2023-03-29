@@ -1,14 +1,14 @@
-#gpt_code_review
+# gpt_code_review
 
 `gpt_code_review` is a Python package that helps in code review with the help of OpenAI's GPT-3.5 API. This package provides a simple command-line interface to generate a code review message for a given branch in a Git repository.
 
-##Installation
+## Installation
 To install gpt_code_review, you can use pip:
 
 ```bash
 pip install gpt_code_review
 ```
-##Usage
+## Usage
 
 To use the gpt_code_review package, you need to have an OpenAI API key. You can get the API key from the OpenAI website (https://beta.openai.com/signup/).
 
