@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='gpt_code_review',
-    version='0.1.0',
+    version='0.1.1',
     packages=find_packages(),
     author='Patryk Maruda',
     author_email='patrykmaruda@gmail.com',
@@ -10,6 +10,7 @@ setup(
     install_requires=[
         'click',
         'openai',
+        'GitPython',
     ],
     entry_points='''
         [console_scripts]
