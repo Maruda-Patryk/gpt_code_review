@@ -10,7 +10,15 @@ class GitService:
         self.diffs = self.get_diff()
 
     def get_diff(self):
-        return self.review_branch.commit.diff(self.main_branch.commit)
+        return self.review_branch.commit.diff(self.get_base_commit())
+
+    def get_base_commit(self):
+        review_commit = self.review_branch.commit
+        main_commit = self.main_branch.commit
+        merge_base = self.repo.merge_base(review_commit, main_commit)
+        if not merge_base:
+            raise Exception('No merge base found')
+        return self.repo.merge_base(review_commit, main_commit)[-1]
 
     def get_diffrence_per_file(self):
         changes_per_file = {}
