@@ -34,7 +34,7 @@ class GitService:
     def preper_message_for_chat(self):
         data = self.get_diffrence_per_file()
 
-        result = """Make code review for this code: \n ```"""
+        result = """Make code review for this code ('-' at the start of the line mean that code was deleted and '+' mean that code was add): \n ```"""
         if self.extend:
             result += f'and make some example how to solve those problems \n'
         for diff in data:
